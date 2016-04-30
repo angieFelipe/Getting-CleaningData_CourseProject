@@ -35,10 +35,11 @@ The experiments have been carried out with a group of **30 volunteers** within a
 
 - 'features.txt': List of all features.
 
-- 'HARdataset.txt': data set for 10299 observations and 564 variables (561 features + activity + subject + (test or training))
+- 'HARdataset.txt'='HARdataset.zip' : data set for 10299 observations and 564 variables 
+            (561 features + activity + subject + (test or training))
 
 - 'HARsubset.txt': data set for 10299 observations and 89 variables 
-      (86 features referred to mean and standard deviation + activity + subject + (test or training))
+            (86 features referred to mean and standard deviation + activity + subject + (test or training))
 
 - 'HARaverage.txt': data set for 180 observations and 87 variables corresponding to the average of each variable of HARsubset.txt
     for each activity and each subject
