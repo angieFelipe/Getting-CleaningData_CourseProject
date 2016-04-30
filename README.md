@@ -190,19 +190,19 @@ I have recorded the data frames accordingly in **HARdataset.txt, HARsubset.txt a
 
 ### erasing temp vectors and dataframes
 
-rm(activity)
+        rm(activity)
 
-rm(activitytrain)
+        rm(activitytrain)
 
-rm(subject)
+        rm(subject)
 
-rm(subjecttrain)
+        rm(subjecttrain)
 
-rm(use)
+        rm(use)
 
-rm(xtest)
+        rm(xtest)
 
-rm(xtrain)
+        rm(xtrain)
 
 
 ## (2) extract only the measurements on the mean and standard deviation for each measurement
