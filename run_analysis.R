@@ -95,7 +95,7 @@ rm(subjecttrain)
 rm(use)
 rm(xtest)
 rm(xtrain)
-rm(variable.names)
+
 
 #(2) extract only the measurements on the mean and standard deviation for each measurement
 #selection of variables whith mean or std in their names and the 3 variables created by me
@@ -107,6 +107,8 @@ variablesaescoger<-which(grepl("mean",names(HARdataset)) |
                         grepl("use",names(HARdataset))
                         )
 HARsubset<-HARdataset[,variablesaescoger]
+
+rm(variablesaescoger) #erase temporary vector
 
 #(3)use descriptive ativity names to name the activities in the data set
 
@@ -126,5 +128,9 @@ HARaverage.subset<-HARsubset # create the new data frame
 HARaverage.subset<-HARsubset %>% group_by(activity,subject) %>% 
         summarise_each_(funs(mean),names(HARaverage.subset)[1:85]) 
         
-
+#recording the new data set
+write.table(HARdataset,file = "./data/HARdataset.txt")
+write.table(HARsubset,file = "./data/HARsubset.txt")
+write.table(HARaverage.subset,file = "./data/HARaverage.txt")
+write.table(variable.names ,file = "./data/features.txt")
 
