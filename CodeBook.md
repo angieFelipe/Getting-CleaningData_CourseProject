@@ -3,7 +3,7 @@
 
 Human Activity Recognition Using Smartphones Dataset
 Version 1.0
-
+"http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip"
 Jorge L. Reyes-Ortiz, Davide Anguita, Alessandro Ghio, Luca Oneto.
 Smartlab - Non Linear Complex Systems Laboratory
 DITEN - Universit‡ degli Studi di Genova.
@@ -35,11 +35,14 @@ The experiments have been carried out with a group of **30 volunteers** within a
 
 - 'features.txt': List of all features.
 
-- 'HARdataset.txt': data set for 10299 observations and 564 variables
+- 'HARdataset.txt': data set for 10299 observations and 564 variables (561 features + activity + subject + (test or training))
 
-- 'HARsubset.txt': data set for 10299 observations and 89 variables
+- 'HARsubset.txt': data set for 10299 observations and 89 variables 
+      (86 features referred to mean and standard deviation + activity + subject + (test or training))
 
-- 'HARaverage.txt': data set for 180 observations and 87 variables
+- 'HARaverage.txt': data set for 180 observations and 87 variables corresponding to the average of each variable of HARsubset.txt
+    for each activity and each subject
+      
 
 
 
