@@ -46,19 +46,19 @@ I have create one R script called run_analysis.R that does the following:
         5) From the data set in step 4, I have created a second, independent tidy data set named with the average of each variable for each activity and each subject. in data frame HARaverage.subset
         
         
-I have recorded the data frames accordingly in HARdataset.txt, HARsubset.txt and HARaverage.txt. Codebook for all data sets are available in CodeBook.md in this repo
+I have recorded the data frames accordingly in **HARdataset.txt, HARsubset.txt and HARaverage.txt**. Codebook for all data sets are available in **CodeBook.md** in this repo.
 
 
-##Explanation of the script
+# EXPLANATION OF THE SCRIPT "run_analysis.R"
 
 
 
-###creating an especific directory for data
+### creating an especific directory for data
 if(!file.exists("data")){
         dir.create("data")
 }
 
-###saving urls indicated by the assignment
+### saving urls indicated by the assignment
 
 infoUrl<-"http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
 
@@ -69,28 +69,28 @@ dataProjectUrl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2F
 htmlinfoUrl<-"http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones"
 
 
-###downloading data and date
+### downloading data and date
 
 download.file(dataProjectUrl,destfile = "./data/dataset.zip",method = "curl")
 
 dataset.downloadingDate<-date() 
 
-##unziping files
+## unziping files
 unzip("./data/dataset.zip", exdir = "./data")
 
 dataset.info<-unzip("./data/dataset.zip", list = T)
 
 
-##reading appropiate files & create appropiate data set also
-(4) Appropriately labels the data set with descriptive variable names.
+## reading appropiate files & create appropiate data set also
+## (4) Appropriately labels the data set with descriptive variable names.
 
- ####reading list of features
+### reading list of features
  
 variable.names<-read.table(paste0("./data/",
                         dataset.info[2,1]),
                         stringsAsFactors = F)
                        
-####rearrenging variable names
+### rearrenging variable names
 erase.punctuation<-  function(x) {x<-gsub("-","",x);
                                 x<-gsub("\\(","",x);
                                 x<-gsub(")","",x);
@@ -101,13 +101,13 @@ variable.names$V3<-sapply(variable.names$V2,erase.punctuation)
 variable.names$V3<-tolower(variable.names$V3)
 
 
-###reading activity names
+### reading activity names
 
 activity.names<-read.table(paste0("./data/",dataset.info[1,1]))
 
 
-###test data set
-####main data set for test
+## test data set
+#main data set for test
 
 xtest<-read.table(paste0("./data/",dataset.info[17,1])) 
 
