@@ -140,4 +140,6 @@ write.table(HARsubset,file = "./data/HARsubset.txt")
 write.table(HARaverage.subset,file = "./data/HARaverage.txt")
 write.table(variable.names ,file = "./data/features.txt")
 
+#HARdataset.txt is to heavy to upload to the github
+
 zip("./data/HARaverage.zip",file = "./data/HARaverage.txt")
