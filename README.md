@@ -129,12 +129,14 @@ I have recorded the data frames accordingly in **HARdataset.txt, HARsubset.txt a
 
 
 **creating a variable to further distinguish between test and train data set after merge**
+
         use<-rep_len("test",length.out = nrow(xtest))
 
         names(use)<-"use"
 
 
 ### creating the test dataset by adding columns (variables)
+
         xtest<-cbind(xtest,activity)
 
         xtest<-cbind(xtest,subject)
@@ -146,6 +148,7 @@ I have recorded the data frames accordingly in **HARdataset.txt, HARsubset.txt a
 ## training data set
 
 ### main data set for train
+
         xtrain<-read.table(paste0("./data/",dataset.info[31,1])) 
 
 **changing variable names per features**
@@ -171,6 +174,7 @@ I have recorded the data frames accordingly in **HARdataset.txt, HARsubset.txt a
         names(use)<-"use"
 
 ### creating the test dataset by adding columns (variables)
+
         xtrain<-cbind(xtrain,activitytrain)
 
         xtrain<-cbind(xtrain,subjecttrain)
@@ -185,6 +189,7 @@ I have recorded the data frames accordingly in **HARdataset.txt, HARsubset.txt a
         HARdataset<-rbind(xtest,xtrain)
 
 ### erasing temp vectors and dataframes
+
 rm(activity)
 
 rm(activitytrain)
@@ -204,6 +209,7 @@ rm(xtrain)
 **selection of variables whith mean or std in their names and the 3 variables created by me**
 
 ### creating a vector with the indexes of the appropiate columns as they incorporate mean and std in their names plus the 3 indexes of the variables I have created
+
         variablesaescoger<-which(grepl("mean",names(HARdataset)) | 
                         grepl("std",names(HARdataset)) |
                         grepl("activity",names(HARdataset)) |
@@ -216,6 +222,7 @@ rm(xtrain)
         HARsubset<-HARdataset[,variablesaescoger]
 
 ### erase temporary vector
+
         rm(variablesaescoger) 
 
 ##(3)use descriptive ativity names to name the activities in the data set
@@ -230,9 +237,11 @@ column-variable activity of the data frame in a factor with appropiates labels**
 ## (5) - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 ### I will use the dplyr package
+
 library("dplyr") 
 
 ### create the new data frame
+
 HARaverage.subset<-HARsubset 
 
 ### putting data in the new data set  with the average of each variable for each activity and each subject
@@ -241,10 +250,14 @@ HARaverage.subset<-HARsubset
                 summarise_each_(funs(mean),names(HARaverage.subset)[1:85]) 
         
 ## recording the new data set
-write.table(HARdataset,file = "./data/HARdataset.txt")
-write.table(HARsubset,file = "./data/HARsubset.txt")
-write.table(HARaverage.subset,file = "./data/HARaverage.txt")
-write.table(variable.names ,file = "./data/features.txt")
+
+        write.table(HARdataset,file = "./data/HARdataset.txt")
+
+        write.table(HARsubset,file = "./data/HARsubset.txt")
+
+        write.table(HARaverage.subset,file = "./data/HARaverage.txt")
+
+        write.table(variable.names ,file = "./data/features.txt")
 
 
 
