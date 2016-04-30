@@ -100,18 +100,23 @@ rm(xtrain)
 #(2) extract only the measurements on the mean and standard deviation for each measurement
 #selection of variables whith mean or std in their names and the 3 variables created by me
 
+###creating a vector with the indexes of the appropiate columns as 
+#they incorporate mean and std in their names
+#plus the 3 indexes of the variables I have created
 variablesaescoger<-which(grepl("mean",names(HARdataset)) | 
                         grepl("std",names(HARdataset)) |
                         grepl("activity",names(HARdataset)) |
                         grepl("subject",names(HARdataset)) |
                         grepl("use",names(HARdataset))
                         )
+#subsetting
 HARsubset<-HARdataset[,variablesaescoger]
 
 rm(variablesaescoger) #erase temporary vector
 
 #(3)use descriptive ativity names to name the activities in the data set
-
+#### I have used the information of activity names in data frame to transform
+####column-variable activity of the data frame in a factor with appropiates labels
 HARsubset$activity<-factor(as.character(HARsubset$activity), 
                            levels = activity.names$V1, 
                            labels=activity.names$V2)
@@ -119,7 +124,8 @@ HARsubset$activity<-factor(as.character(HARsubset$activity),
 #(5) - From the data set in step 4, creates a second, 
 #independent tidy data set with the average of each variable 
 #for each activity and each subject.
-library("dplyr") # library to use
+# library to use
+library("dplyr")
 HARaverage.subset<-HARsubset # create the new data frame
 
 #obtaining a new data set with with the average of each variable 
@@ -131,6 +137,9 @@ HARaverage.subset<-HARsubset %>% group_by(activity,subject) %>%
 #recording the new data set
 write.table(HARdataset,file = "./data/HARdataset.txt")
 write.table(HARsubset,file = "./data/HARsubset.txt")
-write.table(HARaverage.subset,file = "./data/HARaverage.txt")
+write.table(HARaverage.subset,file = "./data/HARaverage.txt", row.name=FALSE)
 write.table(variable.names ,file = "./data/features.txt")
 
+
+#HARdataset.txt is to heavy to upload to the github
+zip("./data/HARdataset.zip",file = "./data/HARdataset.txt")
