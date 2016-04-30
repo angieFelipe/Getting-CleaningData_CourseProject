@@ -54,31 +54,31 @@ I have recorded the data frames accordingly in **HARdataset.txt, HARsubset.txt a
 
 
 ### creating an especific directory for data
-if(!file.exists("data")){
-        dir.create("data")
-}
+        if(!file.exists("data")){
+                dir.create("data")
+        }
 
 ### saving urls indicated by the assignment
 
-infoUrl<-"http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
+        infoUrl<-"http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.names"
 
-datasetUrl<-"http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip"
+        datasetUrl<-"http://archive.ics.uci.edu/ml/machine-learning-databases/00240/UCI%20HAR%20Dataset.zip"
 
-dataProjectUrl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+        dataProjectUrl<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 
-htmlinfoUrl<-"http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones"
+        htmlinfoUrl<-"http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones"
 
 
 ### downloading data and date
 
-download.file(dataProjectUrl,destfile = "./data/dataset.zip",method = "curl")
+        download.file(dataProjectUrl,destfile = "./data/dataset.zip",method = "curl")
 
-dataset.downloadingDate<-date() 
+        dataset.downloadingDate<-date() 
 
 ## unziping files
-unzip("./data/dataset.zip", exdir = "./data")
+        unzip("./data/dataset.zip", exdir = "./data")
 
-dataset.info<-unzip("./data/dataset.zip", list = T)
+        dataset.info<-unzip("./data/dataset.zip", list = T)
 
 
 ## reading appropiate files & create appropiate data set also
@@ -86,105 +86,105 @@ dataset.info<-unzip("./data/dataset.zip", list = T)
 
 ### reading list of features
  
-variable.names<-read.table(paste0("./data/",
+        variable.names<-read.table(paste0("./data/",
                         dataset.info[2,1]),
                         stringsAsFactors = F)
                        
 ### rearrenging variable names
-erase.punctuation<-  function(x) {x<-gsub("-","",x);
+        erase.punctuation<-  function(x) {x<-gsub("-","",x);
                                 x<-gsub("\\(","",x);
                                 x<-gsub(")","",x);
                                 x<-gsub("\\,","",x)}
                                 
-variable.names$V3<-sapply(variable.names$V2,erase.punctuation)
+        variable.names$V3<-sapply(variable.names$V2,erase.punctuation)
 
-variable.names$V3<-tolower(variable.names$V3)
+        variable.names$V3<-tolower(variable.names$V3)
 
 
 ### reading activity names
 
-activity.names<-read.table(paste0("./data/",dataset.info[1,1]))
+        activity.names<-read.table(paste0("./data/",dataset.info[1,1]))
 
 
 ## test data set
-#main data set for test
+**main data set for test**
 
-xtest<-read.table(paste0("./data/",dataset.info[17,1])) 
+        xtest<-read.table(paste0("./data/",dataset.info[17,1])) 
 
-####changing variable names per features
+**changing variable names per features**
 
-names(xtest)<-variable.names$V3
+        names(xtest)<-variable.names$V3
 
-####incorporating ADL info
+**incorporating ADL info**
 
-activity<-read.table(paste0("./data/",dataset.info[18,1]))
+        activity<-read.table(paste0("./data/",dataset.info[18,1]))
 
-names(activity)<-"activity"
+        names(activity)<-"activity"
 
-####incorporating subject info
+**incorporating subject info**
 
-subject<-read.table(paste0("./data/",dataset.info[16,1]))
+        subject<-read.table(paste0("./data/",dataset.info[16,1]))
 
-names(subject)<-"subject"
-
-
-#####creating a variable to further distinguish between test and train data set after merge
-use<-rep_len("test",length.out = nrow(xtest))
-
-names(use)<-"use"
+        names(subject)<-"subject"
 
 
-##creating the test dataset by adding columns (variables)
-xtest<-cbind(xtest,activity)
+**creating a variable to further distinguish between test and train data set after merge**
+        use<-rep_len("test",length.out = nrow(xtest))
 
-xtest<-cbind(xtest,subject)
-
-xtest<-cbind(xtest,use)
+        names(use)<-"use"
 
 
+### creating the test dataset by adding columns (variables)
+        xtest<-cbind(xtest,activity)
 
-##training data set
+        xtest<-cbind(xtest,subject)
 
-####main data set for train
-xtrain<-read.table(paste0("./data/",dataset.info[31,1])) 
-
-####changing variable names per features
-
-names(xtrain)<-variable.names$V3
-
-#incorporating ADL info
-
-activitytrain<-read.table(paste0("./data/",dataset.info[32,1]))
-
-names(activitytrain)<-"activity"
-
-####incorporating subject info
-
-subjecttrain<-read.table(paste0("./data/",dataset.info[30,1]))
-
-names(subjecttrain)<-"subject"
-
-####creating a variable to further distinguish between test and train data set after merge
-
-use<-rep_len("train",length.out = nrow(xtrain))
-
-names(use)<-"use"
-
-####creating the test dataset by adding columns (variables)
-xtrain<-cbind(xtrain,activitytrain)
-
-xtrain<-cbind(xtrain,subjecttrain)
-
-xtrain<-cbind(xtrain,use)
+        xtest<-cbind(xtest,use)
 
 
-##(1) Merges the training and the test sets to create one data set.
-both data sets have the same variable but refer to different subjects
- rbind will apply perfectly for the purpose
 
-HARdataset<-rbind(xtest,xtrain)
+## training data set
 
-###erasing temp vectors and dataframes
+### main data set for train
+        xtrain<-read.table(paste0("./data/",dataset.info[31,1])) 
+
+**changing variable names per features**
+
+        names(xtrain)<-variable.names$V3
+
+**incorporating ADL info**
+
+        activitytrain<-read.table(paste0("./data/",dataset.info[32,1]))
+
+        names(activitytrain)<-"activity"
+
+**incorporating subject info**
+
+        subjecttrain<-read.table(paste0("./data/",dataset.info[30,1]))
+
+        names(subjecttrain)<-"subject"
+
+**creating a variable to further distinguish between test and train data set after merge**
+
+        use<-rep_len("train",length.out = nrow(xtrain))
+
+        names(use)<-"use"
+
+### creating the test dataset by adding columns (variables)
+        xtrain<-cbind(xtrain,activitytrain)
+
+        xtrain<-cbind(xtrain,subjecttrain)
+
+        xtrain<-cbind(xtrain,use)
+
+
+## (1) Merges the training and the test sets to create one data set.
+**both data sets have the same variable but refer to different subjects
+ rbind will apply perfectly for the purpose**
+
+        HARdataset<-rbind(xtest,xtrain)
+
+### erasing temp vectors and dataframes
 rm(activity)
 
 rm(activitytrain)
@@ -200,51 +200,47 @@ rm(xtest)
 rm(xtrain)
 
 
-##(2) extract only the measurements on the mean and standard deviation for each measurement
-selection of variables whith mean or std in their names and the 3 variables created by me
+## (2) extract only the measurements on the mean and standard deviation for each measurement
+**selection of variables whith mean or std in their names and the 3 variables created by me**
 
-##creating a vector with the indexes of the appropiate columns as they incorporate mean and std in their names
-plus the 3 indexes of the variables I have created
-variablesaescoger<-which(grepl("mean",names(HARdataset)) | 
+### creating a vector with the indexes of the appropiate columns as they incorporate mean and std in their names plus the 3 indexes of the variables I have created
+        variablesaescoger<-which(grepl("mean",names(HARdataset)) | 
                         grepl("std",names(HARdataset)) |
                         grepl("activity",names(HARdataset)) |
                         grepl("subject",names(HARdataset)) |
                         grepl("use",names(HARdataset))
                         )
 
-####subsetting
+### subsetting
                         
-HARsubset<-HARdataset[,variablesaescoger]
+        HARsubset<-HARdataset[,variablesaescoger]
 
-####erase temporary vector
-rm(variablesaescoger) 
+### erase temporary vector
+        rm(variablesaescoger) 
 
 ##(3)use descriptive ativity names to name the activities in the data set
 
-#### I have used the information of activity names in data frame to transform
-column-variable activity of the data frame in a factor with appropiates labels
+**I have used the information of activity names in data frame to transform
+column-variable activity of the data frame in a factor with appropiates labels**
 
-HARsubset$activity<-factor(as.character(HARsubset$activity), 
+        HARsubset$activity<-factor(as.character(HARsubset$activity), 
                            levels = activity.names$V1, 
                            labels=activity.names$V2)
 
-##(5) - From the data set in step 4, creates a second, 
-independent tidy data set with the average of each variable 
-for each activity and each subject.
+## (5) - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-####I will use the dplyr package
+### I will use the dplyr package
 library("dplyr") 
 
-#### create the new data frame
+### create the new data frame
 HARaverage.subset<-HARsubset 
 
-####putting data in the new data set  with the average of each variable 
-for each activity and each subject
+### putting data in the new data set  with the average of each variable for each activity and each subject
 
-HARaverage.subset<-HARsubset %>% group_by(activity,subject) %>% 
-        summarise_each_(funs(mean),names(HARaverage.subset)[1:85]) 
+        HARaverage.subset<-HARsubset %>% group_by(activity,subject) %>% 
+                summarise_each_(funs(mean),names(HARaverage.subset)[1:85]) 
         
-#recording the new data set
+## recording the new data set
 write.table(HARdataset,file = "./data/HARdataset.txt")
 write.table(HARsubset,file = "./data/HARsubset.txt")
 write.table(HARaverage.subset,file = "./data/HARaverage.txt")
