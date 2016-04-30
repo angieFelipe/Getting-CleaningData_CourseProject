@@ -137,9 +137,9 @@ HARaverage.subset<-HARsubset %>% group_by(activity,subject) %>%
 #recording the new data set
 write.table(HARdataset,file = "./data/HARdataset.txt")
 write.table(HARsubset,file = "./data/HARsubset.txt")
-write.table(HARaverage.subset,file = "./data/HARaverage.txt")
+write.table(HARaverage.subset,file = "./data/HARaverage.txt", row.name=FALSE)
 write.table(variable.names ,file = "./data/features.txt")
 
-#HARdataset.txt is to heavy to upload to the github
 
-zip("./data/HARaverage.zip",file = "./data/HARaverage.txt")
+#HARdataset.txt is to heavy to upload to the github
+zip("./data/HARdataset.zip",file = "./data/HARdataset.txt")
